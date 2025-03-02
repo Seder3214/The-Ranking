@@ -754,7 +754,35 @@ else if (data.tier>=1 && player.points.gte(gridCost('rp',id))){
             else data.tier++
         }
     }
-    if (hasUpgrade('rp',13)&&(!new Decimal(player.rp.grid[101].hex).gte(gridHexUpCost('rp',101)))) {
+    if (hasUpgrade('rp',13)&&(!new Decimal(player.rp.grid[102].hex).gte(gridHexUpCost('rp',102)))) {
+        data = player.rp.grid[101]
+        data2 = player.rp.grid[102]
+        chance=Math.random()
+        if (hasUpgrade('rp',61)&&new Decimal(data2.hex).gte(gridHexUpCost('rp',102))) return;
+        if (new Decimal(data2.pent).gte(gridPentUpCost('rp',102))&& player.points.gte(gridCost('rp',102))&&(player.rp.activeChallenge!=12)) {
+            player.points = new Decimal(0)
+            data2.hex++
+            if(!hasUpgrade('rp',33)) {
+                player.points = new Decimal(0)
+                data2.pent=1
+                data2.tetr=1
+                data2.tier=1
+                }
+            }
+        if (new Decimal(data2.tetr).gte(gridTetrUpCost('rp',102))&& player.points.gte(gridCost('rp',102))) {
+            data2.pent++
+            if (!hasUpgrade('rp',23)){data2.tetr=1
+                data2.tier=1}
+            }
+        if (new Decimal(data2.tier).gte(gridTierUpCost('rp',102))&& player.points.gte(gridCost('rp',102))&&player.rp.activeChallenge!=11) {
+            data2.tetr++
+        }
+        else if (data2.tier>=1 && player.points.gte(gridCost('rp',102))){
+            if (player.rp.activeChallenge==11 && data2.tier>=tmp.rp.challenges[11].rankCap) return
+            else data2.tier++
+        }
+}
+    else if (hasUpgrade('rp',13)&&(!new Decimal(player.rp.grid[101].hex).gte(gridHexUpCost('rp',101)))) {
         data = player.rp.grid[101]
         chance=Math.random()
         if (hasUpgrade('rp',61)&&new Decimal(data.hex).gte(gridHexUpCost('rp',101))) return;
@@ -778,34 +806,6 @@ else if (data.tier>=1 && player.points.gte(gridCost('rp',id))){
                     else data.tier++
                 }
 }
-        if (hasUpgrade('rp',13)&&(!new Decimal(player.rp.grid[102].hex).gte(gridHexUpCost('rp',102)))) {
-            data = player.rp.grid[101]
-            data2 = player.rp.grid[102]
-            chance=Math.random()
-            if (hasUpgrade('rp',61)&&new Decimal(data2.hex).gte(gridHexUpCost('rp',102))) return;
-            if (new Decimal(data2.pent).gte(gridPentUpCost('rp',102))&& player.points.gte(gridCost('rp',102))&&(player.rp.activeChallenge!=12)) {
-                player.points = new Decimal(0)
-                data2.hex++
-                if(!hasUpgrade('rp',33)) {
-                    player.points = new Decimal(0)
-                    data2.pent=1
-                    data2.tetr=1
-                    data2.tier=1
-                    }
-                }
-            if (new Decimal(data2.tetr).gte(gridTetrUpCost('rp',102))&& player.points.gte(gridCost('rp',102))) {
-                data2.pent++
-                if (!hasUpgrade('rp',23)){data2.tetr=1
-                    data2.tier=1}
-                }
-            if (new Decimal(data2.tier).gte(gridTierUpCost('rp',102))&& player.points.gte(gridCost('rp',102))&&player.rp.activeChallenge!=11) {
-                data2.tetr++
-            }
-            else if (data2.tier>=1 && player.points.gte(gridCost('rp',102))){
-                if (player.rp.activeChallenge==11 && data2.tier>=tmp.rp.challenges[11].rankCap) return
-                else data2.tier++
-            }
-    }
     if (player.points.gte(new Decimal(`1.79769e308`))) player.points = player.points.min(new Decimal(`1.79769e308`))
     },
     row: 1, // Row the layer is in on the tree (0 is the first row)
