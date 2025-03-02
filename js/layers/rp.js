@@ -783,7 +783,7 @@ else if (data.tier>=1 && player.points.gte(gridCost('rp',id))){
             else data2.tier++
         }
 }
-    else if (hasUpgrade('rp',13)) {
+        if (hasUpgrade('rp',13)) {
         data = player.rp.grid[101]
         chance=Math.random()
         if (hasUpgrade('rp',61)&&new Decimal(data.hex).gte(gridHexUpCost('rp',101))) return;
