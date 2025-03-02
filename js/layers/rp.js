@@ -315,7 +315,7 @@ addLayer("rp", {
         62: {
             title: "Rankings XVII",
             description: "Weaken Rankings XI's effect 1st softcap.",
-            cost: new Decimal(3e269),
+            cost: new Decimal(3e261),
             unlocked() {return player.rp.points.gte(6)},
                 currencyDisplayName: "points",
                 currencyInternalName: "points",
