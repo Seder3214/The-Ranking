@@ -681,10 +681,11 @@ else if (data.tier>=1 && player.points.gte(gridCost('rp',id))){
     },
 
     update(diff) {
-        if (hasUpgrade('rp',43)&&(!new Decimal(player.rp.grid[202].hex).gte(gridHexUpCost('rp',202)))) {
+        if (hasUpgrade('rp',43)) {
             num = 202
             data = player.rp.grid[num]
             chance=Math.random()
+            if (hasUpgrade('rp',61)&&new Decimal(data.hex).gte(gridHexUpCost('rp',num))) return;
         if (new Decimal(data.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
             if(!hasUpgrade('rp',33)) {
                 player.points = new Decimal(0)
@@ -705,7 +706,7 @@ else if (data.tier>=1 && player.points.gte(gridCost('rp',id))){
             else data.tier++
         }
     }
-        if (hasUpgrade('rp',32)&&(!new Decimal(player.rp.grid[201].hex).gte(gridHexUpCost('rp',201)))) {
+        if (hasUpgrade('rp',32)) {
             num = 201
             data = player.rp.grid[num]
             chance=Math.random()
@@ -730,7 +731,7 @@ else if (data.tier>=1 && player.points.gte(gridCost('rp',id))){
             else data.tier++
         }
     }
-        if (hasUpgrade('rp',31)&&(!new Decimal(player.rp.grid[103].hex).gte(gridHexUpCost('rp',103)))) {
+        if (hasUpgrade('rp',31)) {
             data = player.rp.grid[103]
             chance=Math.random()
             if (hasUpgrade('rp',61)&&new Decimal(data.hex).gte(gridHexUpCost('rp',103))) return;
@@ -754,7 +755,7 @@ else if (data.tier>=1 && player.points.gte(gridCost('rp',id))){
             else data.tier++
         }
     }
-    if (hasUpgrade('rp',13)&&(!new Decimal(player.rp.grid[102].hex).gte(gridHexUpCost('rp',102)))) {
+    if (hasUpgrade('rp',13)) {
         data = player.rp.grid[101]
         data2 = player.rp.grid[102]
         chance=Math.random()
@@ -782,7 +783,7 @@ else if (data.tier>=1 && player.points.gte(gridCost('rp',id))){
             else data2.tier++
         }
 }
-    else if (hasUpgrade('rp',13)&&(!new Decimal(player.rp.grid[101].hex).gte(gridHexUpCost('rp',101)))) {
+    else if (hasUpgrade('rp',13)) {
         data = player.rp.grid[101]
         chance=Math.random()
         if (hasUpgrade('rp',61)&&new Decimal(data.hex).gte(gridHexUpCost('rp',101))) return;
