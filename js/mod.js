@@ -2,17 +2,17 @@ let modInfo = {
 	name: "The Ranking",
 	author: "seder3214",
 	pointsName: "points",
-	modFiles: ["layers/rp.js", "tree.js"],
+	modFiles: ["layers/rp.js","layers/a.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
-	initialStartPoints: new Decimal (10), // Used for hard resets and new players
+	initialStartPoints: new Decimal(10), // Used for hard resets and new players
 	offlineLimit: 1,  // In hours
 }
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.1",
+	num: "0.1.03",
 	name: "Literally nothing",
 }
 

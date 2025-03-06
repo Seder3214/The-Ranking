@@ -809,7 +809,9 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
     if (player.points.gte(new Decimal(`1.79769e308`))) player.points = player.points.min(new Decimal(`1.79769e308`))
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
-
+    doReset() {
+        player.points=new Decimal(10)
+    },
     hotkeys: [
         {key: "b", description: "b: Reset for booster points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
