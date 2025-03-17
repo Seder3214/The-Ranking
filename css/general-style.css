@@ -7,7 +7,6 @@ body {
 	--points: #ffffff;
 	background: var(--background)
 }
-
 /* General text */
 h1, h2, h3, b, input {
 	display: inline;

@@ -11,7 +11,8 @@ var activeFunctions = [
 	"effectDescription", "display", "fullDisplay", "effectDisplay", "rewardDisplay",
 	"tabFormat", "content",
 	"onComplete", "onPurchase", "onEnter", "onExit", "done",
-	"getUnlocked", "getStyle", "getCanClick", "getTitle", "getDisplay", "getEffect","sidewaysEff",'updateGrid','getCost','tetrUpCost','tierUpCost','pentUpCost','hexUpCost','hexUpChance'
+	"getUnlocked", "getStyle", "getCanClick", "getTitle", "getEffect","sidewaysEff",
+	'updateGrid','tetrUpCost','tierUpCost','pentUpCost','hexUpCost','hexUpChance',"getDisplay",'getCost'
 ]
 var noCall = doNotCallTheseFunctionsEveryTick
 for (item in noCall) {

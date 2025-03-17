@@ -3,9 +3,10 @@ var systemComponents = {
 		props: ['layer', 'data', 'name'],
 		template: `
 			<div class="upgRow">
+				<div style="width:5px;height:40px" v-bind:style="{'background-color': tmp[layer].color}"></div>&nbsp&nbsp&nbsp
 				<div v-for="tab in Object.keys(data)">
 					<button v-if="data[tab].unlocked == undefined || data[tab].unlocked" v-bind:class="{tabButton: true, notify: subtabShouldNotify(layer, name, tab), resetNotify: subtabResetNotify(layer, name, tab)}"
-					v-bind:style="[{'border-color': tmp[layer].color}, (subtabShouldNotify(layer, name, tab) ? {'box-shadow': 'var(--hqProperty2a), 0 0 20px '  + (data[tab].glowColor || defaultGlow)} : {}), tmp[layer].componentStyles['tab-button'], data[tab].buttonStyle]"
+					v-bind:style="[{'background-color': tmp[layer].color}, tmp[layer].componentStyles['tab-button'], data[tab].buttonStyle]"
 						v-on:click="function(){player.subtabs[layer][name] = tab; updateTabFormats(); needCanvasUpdate = true;}">{{tab}}</button>
 				</div>
 			</div>
@@ -151,29 +152,24 @@ var systemComponents = {
     'options-tab': {
         template: `
         <table>
-            <tr>
-                <td><button class="opt" onclick="save()">Save</button></td>
-                <td><button class="opt" onclick="toggleOpt('autosave')">Autosave: {{ options.autosave?"ON":"OFF" }}</button></td>
-                <td><button class="opt" onclick="hardReset()">HARD RESET</button></td>
-            </tr>
-            <tr>
-                <td><button class="opt" onclick="exportSave()">Export to clipboard</button></td>
-                <td><button class="opt" onclick="importSave()">Import</button></td>
-                <td><button class="opt" onclick="toggleOpt('offlineProd')">Offline Prod: {{ options.offlineProd?"ON":"OFF" }}</button></td>
-            </tr>
-            <tr>
-                <td><button class="opt" onclick="switchTheme()">Theme: {{ getThemeName() }}</button></td>
-                <td><button class="opt" onclick="adjustMSDisp()">Show Milestones: {{ MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)]}}</button></td>
-                <td><button class="opt" onclick="toggleOpt('hqTree')">High-Quality Tree: {{ options.hqTree?"ON":"OFF" }}</button></td>
-            </tr>
-            <tr>
-                <td><button class="opt" onclick="toggleOpt('hideChallenges')">Completed Challenges: {{ options.hideChallenges?"HIDDEN":"SHOWN" }}</button></td>
-                <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">Single-Tab Mode: {{ options.forceOneTab?"ALWAYS":"AUTO" }}</button></td>
-				<td><button class="opt" onclick="toggleOpt('forceTooltips'); needsCanvasUpdate = true">Shift-Click to Toggle Tooltips: {{ options.forceTooltips?"ON":"OFF" }}</button></td>
-				</tr> 
-			<tr>
-                <td><button class="opt" onclick="toggleOpt('hideMilestonePopups')">Show Milestone Popups: {{ formatOption(!options.hideMilestonePopups) }}</button></td>
-            </tr>
+		<h2>[ Saving ]</h2><br><br>
+		<div>
+                <button class="opt" onclick="save()"><b>Save</b><br> <span style="font-size:12px">Save current progress</span></button>
+                <button class="opt" onclick="toggleOpt('autosave')"><b>Autosave</b> <b> -  [ {{ options.autosave?"ON":"OFF" }} ]</b><br><span style="font-size:12px">Automatically save game</span></button>
+                <button class="opt" onclick="HardReset()"><b>Hard Reset</b><br> <span style="font-size:12px">Reset current progress</span></button>
+                <button class="opt" onclick="exportSave()"><b>Export to clipboard</b><br> <span style="font-size:12px">Export a save into clipboard</span></button>
+                <button class="opt" onclick="importSave()"><b>Import a save</b><br> <span style="font-size:12px">Import a save from clipboard</span></button>
+                <button class="opt" onclick="toggleOpt('offlineProd')"><b style="font-size:12px">Offline Production</b> <b> - [ {{ options.offlineProd?"ON":"OFF" }} ]</b><br><span style="font-size:12px">Produce resources when not in game</span></button>
+				<br><br>
+        </div>
+		<h2>[ Displays ]</h2><br><br>
+		<div>
+                <button class="opt" onclick="switchTheme()"><b>Theme</b><b> -  [ {{ getThemeName() }} ]</b><br> <span style="font-size:12px">Choose a theme that you like!</span></b></button>
+                <button class="opt" onclick="adjustMSDisp()"><b style="font-size:12px">Milestone Showing Mode</b><br><span style="font-size:12px">[ {{ MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)]}} ]</span></button>
+                <button class="opt" onclick="toggleOpt('hqTree')"><b style="font-size:12px">High Quality Tree</b><b> - [ {{ options.hqTree?"ON":"OFF" }} ]</b><br><span style="font-size:12px">Use more detailed tree style!</span></button>
+                <button class="opt" onclick="toggleOpt('hideChallenges')"><b style="font-size:12px" >Completed Challenges</b><br><span style="font-size:12px"> [ {{ options.hideChallenges?"Hidden":"Shown" }} ]</span></button>
+				<button class="opt" onclick="toggleOpt('forceTooltips'); needsCanvasUpdate = true"><b style="font-size:12px" >Shift-Click To Toggle Tooltips</b><b> -  [ {{ options.forceTooltips?"ON":"OFF" }} ]</b><br><span style="font-size:12px">Show or hide tree nodes tooltips</span></button><br>
+		</div><br><br>
         </table>`
     },
 

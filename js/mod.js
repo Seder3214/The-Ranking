@@ -12,11 +12,24 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.1.03",
-	name: "Literally nothing",
+	num: "0.1.04",
+	name: "The Ranking",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+	<h3>v0.1.0.4</h3><br>
+		- Fixed several automation bugs.
+		- Changed layer components style.
+	<h3>v0.1.0.3</h3><br>
+		- Reduced the cost of [ Ranking XVII ] upgrade (3e269 -> 3e261)
+		- Reduced the 2nd Rankings effect softcap increase while in [ Rankings UnLimited ] challenge (0.325 -> 0.225)
+		- Also fixed 2nd Ranking's autobuyer not working while in challenges.
+		- Removed the 'stars' typo! (The Event Tree forking moment, lol)
+		- Fixed the bug when automation stops when Ranking meet the req for hex up before unlocking it with an upgrade.
+		- Fixed the bug when you can get restricted rankings in [ Rankings UnLimited ] challenge by holding on them
+		- Changed the row of Ranking Points for a new layer.
+		- Changed the overall font.
+		- Fixed the hardlock when performing RP reset.
 	<h3>v0.1</h3><br>
 		- Added Rankings Layer.`
 
@@ -42,6 +55,7 @@ function getPointGen() {
 
 	let gain = new Decimal(0)
 	if (player.rp.grid[101].tier>=1) gain=gain.add(tmp.rp.getBoosterEff)
+	//gain = gain.mul(getCrystalsEffect('normal'))
 	return gain
 }
 
