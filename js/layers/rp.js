@@ -478,7 +478,8 @@ return color
             if (data.pent==gridPentUpCost('rp',id)) b = b.mul(1250)
             if (data.hex>=1) b=b.mul(Math.pow(1.25,data.hex+1))
             if (data.oct>=1) b=b.mul(Math.pow(1e22,data.oct+1))
-            if (b.gte(new Decimal(`1.79769e308`))&&(!hasMilestone('p',0))) b= Decimal.dInf
+            //if (b.gte(new Decimal(`1.79769e308`))&&(!hasMilestone('p',0))) b= Decimal.dInf v0.1.2
+            if (b.gte(new Decimal(`1.79769e308`))) b= Decimal.dInf
             return b
         },
         getStartCost(data,id) {
@@ -817,7 +818,7 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
             }
             else player.points=player.points.div(gridCost('rp',num))
         }
-    }*/
+    } v0.1.2*/
     if (hasUpgrade('rp',61)&&!new Decimal(data2.hex).gte(gridHexUpCost('rp',num))) {
         if (new Decimal(data2.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
             if(!hasUpgrade('rp',33)) {
@@ -856,7 +857,7 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
                 }
                 else player.points=player.points.div(gridCost('rp',num))
             }
-        }*/
+        } v0.1.2*/ 
         if (hasUpgrade('rp',61)&&!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
         if (new Decimal(data.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
             if(!hasUpgrade('rp',33)) {
@@ -879,7 +880,8 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
         }
     }
 }
-    if (player.points.gte(new Decimal(`1.79769e308`))&&(!hasMilestone('p',0))) player.points = player.points.min(new Decimal(`1.79769e308`))
+if (player.points.gte(new Decimal(`1.79769e308`))) player.points = player.points.min(new Decimal(`1.79769e308`))
+    //if (player.points.gte(new Decimal(`1.79769e308`))&&(!hasMilestone('p',0))) player.points = player.points.min(new Decimal(`1.79769e308`)) v0.1.2
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     doReset() {
