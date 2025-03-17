@@ -102,7 +102,7 @@ addLayer("rp", {
             content:[
                 function() { if (player.tab == "rp")  return ["column", [
     
-    ["display-text", "You have <h2 style='color:rgb(255, 166, 0); text-shadow: rgb(255,166,0) 0px 0px 10px;'>"+format(player.rp.points)+"</h2> ranking points "],
+                    "main-display",
                 'prestige-button',
                 "blank",
                 "upgrades",
@@ -116,7 +116,7 @@ addLayer("rp", {
                 content:[
                     function() { if (player.tab == "rp")  return ["column", [
         
-        ["display-text", "You have <h2 style='color:rgb(255, 166, 0); text-shadow: rgb(255,166,0) 0px 0px 10px;'>"+format(player.rp.points)+"</h2> ranking points "],
+                        "main-display",
                     'prestige-button',
                     "blank",
                     "challenges",
