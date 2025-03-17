@@ -654,7 +654,7 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
             if (hasUpgrade('rp',31)&&id==201) eff = eff.mul(upgradeEffect('rp',31))
             if (challengeCompletions('rp',12)>=1&&id==202) eff = eff.mul(challengeEffect('rp',12))
             if (!hasUpgrade('rp',23)) eff=softcap(eff,new Decimal(1000),new Decimal(0.75))
-            eff=softcap(eff,new Decimal(1e6),player.rp.activeChallenge==12?new Decimal(0.225).mul(hasUpgrade('rp',51)?2.75:1):new Decimal(0.15))
+            eff=softcap(eff,new Decimal(1e6),player.rp.activeChallenge==12?new Decimal(0.375).mul(hasUpgrade('rp',51)?2.75:1):new Decimal(0.15))
             eff=softcap(eff,thirdSoftcapStart,thirdSoftcapPower)
             if (data.oct>=1) eff = eff.mul(octEff)
             return {eff: eff,eff2: octEff}
