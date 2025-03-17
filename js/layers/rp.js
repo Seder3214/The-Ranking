@@ -702,7 +702,7 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
                 else player.points=player.points.div(gridCost('rp',num))
             }
         }*/
-        if (hasUpgrade('rp',61)&&!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
+        if (!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
         if (new Decimal(data.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
             if(!hasUpgrade('rp',33)) {
                 player.points = new Decimal(0)
@@ -741,7 +741,7 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
                 else player.points=player.points.div(gridCost('rp',num))
             }
         }*/
-        if (hasUpgrade('rp',61)&&!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
+        if (!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
             if (new Decimal(data.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
                 if(!hasUpgrade('rp',33)) {
                     player.points = new Decimal(0)
@@ -780,7 +780,7 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
                 else player.points=player.points.div(gridCost('rp',num))
             }
         }*/
-            if (hasUpgrade('rp',61)&&!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
+            if (!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
             if (new Decimal(data.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
                 if(!hasUpgrade('rp',33)) {
                     player.points = new Decimal(0)
@@ -819,7 +819,7 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
             else player.points=player.points.div(gridCost('rp',num))
         }
     } v0.1.2*/
-    if (hasUpgrade('rp',61)&&!new Decimal(data2.hex).gte(gridHexUpCost('rp',num))) {
+    if (!new Decimal(data2.hex).gte(gridHexUpCost('rp',num))) {
         if (new Decimal(data2.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
             if(!hasUpgrade('rp',33)) {
                 player.points = new Decimal(0)
@@ -858,7 +858,7 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
                 else player.points=player.points.div(gridCost('rp',num))
             }
         } v0.1.2*/ 
-        if (hasUpgrade('rp',61)&&!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
+        if (!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
         if (new Decimal(data.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
             if(!hasUpgrade('rp',33)) {
                 player.points = new Decimal(0)
