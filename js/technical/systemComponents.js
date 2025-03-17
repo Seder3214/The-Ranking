@@ -156,7 +156,7 @@ var systemComponents = {
 		<div>
                 <button class="opt" onclick="save()"><b>Save</b><br> <span style="font-size:12px">Save current progress</span></button>
                 <button class="opt" onclick="toggleOpt('autosave')"><b>Autosave</b> <b> -  [ {{ options.autosave?"ON":"OFF" }} ]</b><br><span style="font-size:12px">Automatically save game</span></button>
-                <button class="opt" onclick="HardReset()"><b>Hard Reset</b><br> <span style="font-size:12px">Reset current progress</span></button>
+                <button class="opt" onclick="hardReset()"><b>Hard Reset</b><br> <span style="font-size:12px">Reset current progress</span></button>
                 <button class="opt" onclick="exportSave()"><b>Export to clipboard</b><br> <span style="font-size:12px">Export a save into clipboard</span></button>
                 <button class="opt" onclick="importSave()"><b>Import a save</b><br> <span style="font-size:12px">Import a save from clipboard</span></button>
                 <button class="opt" onclick="toggleOpt('offlineProd')"><b style="font-size:12px">Offline Production</b> <b> - [ {{ options.offlineProd?"ON":"OFF" }} ]</b><br><span style="font-size:12px">Produce resources when not in game</span></button>

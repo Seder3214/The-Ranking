@@ -236,7 +236,7 @@ function loadVue() {
 	Vue.component('main-display', {
 		props: ['layer', 'data'],
 		template: `
-		<div><div style="width:350px;height:30%" v-bind:style="{'background-color': tmp[layer].color}"><span style="color:black" v-if="player[layer].points.lt('1e1000')">You have </span><h2 style="color:black">{{data ? format(player[layer].points, data) : formatWhole(player[layer].points)}}</h2> <span style="color:black">{{tmp[layer].resource}}</span><span v-if="layers[layer].effectDescription">, <span v-html="run(layers[layer].effectDescription, layers[layer])"></span></span></div><br><br></div>
+		<div><div style="width:350px;height:30%" v-bind:style="{'background-color': tmp[layer].color}"><span style="color:black" v-if="player[layer].points.lt('1e1000')">You have </span><h2 style="color:black">{{data ? format(player[layer].points, data) : formatWhole(player[layer].points)}}{{tmp[layer].symbol}}</h2> <span style="color:black">{{tmp[layer].resource}}</span><span v-if="layers[layer].effectDescription">, <span v-html="run(layers[layer].effectDescription, layers[layer])"></span></span></div><br><br></div>
 		`
 	})
 
