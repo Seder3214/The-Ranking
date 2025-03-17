@@ -622,8 +622,10 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
         getEffect(data, id) {
             let eff = new Decimal(2)
             let eff2 = new Decimal(2)
-            let gridBuff = getCrystalsEffect('tiering').toNumber()
-            let base = new Decimal(0.75+gridBuff)
+            //v0.1.2 buffs
+            //let gridBuff = getCrystalsEffect('tiering').toNumber()
+            //let base = new Decimal(0.75+gridBuff)
+            let base = new Decimal(0.75)
             let tetrBase = new Decimal(1.85)
             if (hasUpgrade('rp',51)) tetrBase = tetrBase.mul(2.55)
             let pentBase = new Decimal(11.25)
