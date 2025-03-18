@@ -18,23 +18,23 @@ let VERSION = {
 
 let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.1.05</h3><br>
-		- Some more additions to the style.
-		- Several bugfixes with implemented new layer features causing bugs, because new layer basically doesn't exist in update :|
-		- Changed layer names to symbols.
-	<h3>v0.1.04</h3><br>
-		- Fixed several automation bugs.
-		- Changed layer components style.
-	<h3>v0.1.03</h3><br>
-		- Reduced the cost of [ Ranking XVII ] upgrade (3e269 -> 3e261)
-		- Reduced the 2nd Rankings effect softcap increase while in [ Rankings UnLimited ] challenge (0.325 -> 0.225)
-		- Also fixed 2nd Ranking's autobuyer not working while in challenges.
-		- Removed the 'stars' typo! (The Event Tree forking moment, lol)
-		- Fixed the bug when automation stops when Ranking meet the req for hex up before unlocking it with an upgrade.
-		- Fixed the bug when you can get restricted rankings in [ Rankings UnLimited ] challenge by holding on them
-		- Changed the row of Ranking Points for a new layer.
-		- Changed the overall font.
-		- Fixed the hardlock when performing RP reset.
-	<h3>v0.1</h3><br>
+		- Some more additions to the style.<br>
+		- Several bugfixes with implemented new layer features causing bugs, because new layer basically doesn't exist in update :|<br>
+		- Changed layer names to symbols.<br>
+	<h3><br>v0.1.04</h3><br>
+		- Fixed several automation bugs.<br>
+		- Changed layer components style.<br>
+	<h3><br>v0.1.03</h3><br>
+		- Reduced the cost of [ Ranking XVII ] upgrade (3e269 -> 3e261)<br>
+		- Reduced the 2nd Rankings effect softcap increase while in [ Rankings UnLimited ] challenge (0.325 -> 0.225)<br>
+		- Also fixed 2nd Ranking's autobuyer not working while in challenges.<br>
+		- Removed the 'stars' typo! (The Event Tree forking moment, lol)<br>
+		- Fixed the bug when automation stops when Ranking meet the req for hex up before unlocking it with an upgrade.<br>
+		- Fixed the bug when you can get restricted rankings in [ Rankings UnLimited ] challenge by holding on them<br>
+		- Changed the row of Ranking Points for a new layer.<br>
+		- Changed the overall font.<br>
+		- Fixed the hardlock when performing RP reset.<br>
+	<h3><br>v0.1</h3><br>
 		- Added Rankings Layer.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
