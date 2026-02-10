@@ -450,6 +450,24 @@ return color
                 'color': 'black'
             }
             if (!player.rp.colors[id]) player.rp.colors[id] = Math.floor(Math.random() * 16777216)
+            if (id>203) return {
+                'background-color': player.points.gte(gridCost('rp',id))?'#444':'#171717',
+                'border':'5px solid',
+                
+                'border-color': getColor(player.rp.colors[id], data.tier+data.tetr+data.pent+data.hex),
+                'min-width':'845px',
+                'color':'white',
+                'border-radius':'0%',
+                'height': 'auto',
+                'width':'auto',
+                'font-size':'18px',
+                'min-height':'125px',
+                'background-blend-mode': 'revert',
+                /* Blends the gradient with the image */
+                'background-size': 'cover',
+                'background-repeat':'no-repeat',
+        
+            }
              return {
                 'background-color': player.points.gte(gridCost('rp',id))?'#444':'#171717',
                 'border':'5px solid',
@@ -477,9 +495,9 @@ return color
             if (data.pent>=1) b=b.mul(Math.pow(2,data.pent+1))
             if (data.pent==gridPentUpCost('rp',id)) b = b.mul(1250)
             if (data.hex>=1) b=b.mul(Math.pow(1.25,data.hex+1))
-            if (data.oct>=1) b=b.mul(Math.pow(1e22,data.oct+1))
-            //if (b.gte(new Decimal(`1.79769e308`))&&(!hasMilestone('p',0))) b= Decimal.dInf v0.1.2
-            if (b.gte(new Decimal(`1.79769e308`))) b= Decimal.dInf
+            if (data.oct>=1) b=b.mul(Math.pow(1e22,data.oct+1))  
+            if (id>203) b=b.pow(Math.pow(1.0155,data.tier+data.tetr+data.pent+data.hex+data.oct))      
+            if (b.gte(new Decimal(`1.79769e308`))&&(!hasMilestone('p',0))) b= Decimal.dInf
             return b
         },
         getStartCost(data,id) {
@@ -489,7 +507,7 @@ let rowBoost = Math.floor(id/100)
             if (id==201) cost = new Decimal(1e39)
             if (id==202) cost = new Decimal(1e95)
             if (id==203) cost = new Decimal(1e196)
-            
+            if (id==301) cost = new Decimal(`1e370`)       
 return cost
         },
         getUnlocked(id) { // Default
@@ -623,10 +641,8 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
         getEffect(data, id) {
             let eff = new Decimal(2)
             let eff2 = new Decimal(2)
-            //v0.1.2 buffs
-            //let gridBuff = getCrystalsEffect('tiering').toNumber()
-            //let base = new Decimal(0.75+gridBuff)
-            let base = new Decimal(0.75)
+            let gridBuff = getCrystalsEffect('tiering').toNumber()
+            let base = new Decimal(0.75+gridBuff)
             let tetrBase = new Decimal(1.85)
             if (hasUpgrade('rp',51)) tetrBase = tetrBase.mul(2.55)
             let pentBase = new Decimal(11.25)
@@ -677,7 +693,7 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
                 sideways: "(Boost Power: x[]) ",
             }
 
-            return `<br><h3>Rank ${formatRoman(data.tier)}</h3>${data.tetr>=1?` | <h3>Tier ${formatRoman(data.tetr)}</h3>`:''}${data.pent>=1?`<br><h3>Tetr ${formatRoman(data.pent)}</h3>`:''}${data.hex>=1?` | <h3>Pent ${formatRoman(data.hex)}</h3>`:''}${data.oct>=1?` | <h2>Hex ${formatRoman(data.oct)}</h2>`:''}
+            return `<br><h3>${id>203?"Prestigious ":""}Rank ${formatRoman(data.tier)}</h3>${data.tetr>=1?` | <h3>Tier ${formatRoman(data.tetr)}</h3>`:''}${data.pent>=1?`<br><h3>Tetr ${formatRoman(data.pent)}</h3>`:''}${data.hex>=1?` | <h3>Pent ${formatRoman(data.hex)}</h3>`:''}${data.oct>=1?` | <h2>Hex ${formatRoman(data.oct)}</h2>`:''}
                 <h4>${effects["normal"].replace("{}", format(this.getEffect(data, id).eff,4)).replace("<>", format(this.getEffect(data, id).eff2,2))+(data.hex>=1&&hasUpgrade('rp',61)?'<br><b>To Hex up, reach Pent '+formatRoman(gridHexUpCost('rp',id))+(new Decimal(data.hex).gte(gridHexUpCost('rp',id))?".<br>Hex Up Chance - ("+format(gridHexUpChance('rp',id),2)+"%)":''):'')+(data.pent>=1&&hasUpgrade('rp',22)?'<br><b>To pent up, reach Tetr '+formatRoman(gridPentUpCost('rp',id))+"</b>":'')+(data.tetr>=1&&!hasUpgrade('rp',61)?'<br><b>To tetr up, reach Tier '+formatRoman(gridTetrUpCost('rp',id))+"</b>":'')+(data.tier>=1&&!hasUpgrade('rp',22)?'<br><b>To tier up, reach Rank '+formatRoman(gridTierUpCost('rp',id))+"</b>":'')+'<br><b>Cost to tier up: '+format(gridCost('rp',id))+" points</b></h4>"}
             `
 
@@ -685,23 +701,26 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
     },
 
     update(diff) {
-        if (hasUpgrade('rp',43)) {
-           let num = 202
+        if (hasMilestone('p',2)) {
+           let num = 203
             data = player.rp.grid[num]
-           /* if (hasUpgrade('rp',61)&&(hasMilestone('p',0))&&new Decimal(data.hex).gte(gridHexUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
+           if (hasUpgrade('rp',61)&&(hasMilestone('p',0))&&new Decimal(data.hex).gte(gridHexUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
                 chance=Math.random()
                 if (gridHexUpChance('rp',num).gte(10)) {
                 if (chance<(gridHexUpChance('rp',num).div(100))) {
+                if (!hasMilestone('p',1)) {
                 player.points = new Decimal(0)
-                data.oct++
                 data.pent=1
                 data.tetr=1
                 data.tier=1  
                 data.hex=1
                 }
+                data.oct++
+                }
                 else player.points=player.points.div(gridCost('rp',num))
             }
-        }*/
+        }
+        else {
         if (!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
         if (new Decimal(data.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
             if(!hasUpgrade('rp',33)) {
@@ -724,62 +743,70 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
         }
     }
 }
+}
+        if (hasUpgrade('rp',43)) {
+           let num = 202
+            data = player.rp.grid[num]
+           if (hasUpgrade('rp',61)&&(hasMilestone('p',0))&&new Decimal(data.hex).gte(gridHexUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
+                chance=Math.random()
+                if (gridHexUpChance('rp',num).gte(10)) {
+                if (chance<(gridHexUpChance('rp',num).div(100))) {
+                if (!hasMilestone('p',1)) {
+                player.points = new Decimal(0)
+                data.pent=1
+                data.tetr=1
+                data.tier=1  
+                data.hex=1
+                }
+                data.oct++
+                }
+                else player.points=player.points.div(gridCost('rp',num))
+            }
+        }
+        else {
+        if (!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
+        if (new Decimal(data.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
+            if(!hasUpgrade('rp',33)) {
+                player.points = new Decimal(0)
+                data.pent=1
+                data.tetr=1
+                data.tier=1
+                }
+    data.hex++
+    }
+        if (new Decimal(data.tetr).gte(gridTetrUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
+            data.pent++
+            }
+        if (new Decimal(data.tier).gte(gridTierUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&player.rp.activeChallenge!=11) {
+            data.tetr++
+        }
+        else if (data.tier>=1 && player.points.gte(gridCost('rp',num))){
+            if (player.rp.activeChallenge==11 && data.tier>=tmp.rp.challenges[11].rankCap) return
+            else data.tier++
+        }
+    }
+}
+}
         if (hasUpgrade('rp',32)) {
             let num = 201
             data = player.rp.grid[num]
-            /*if (hasUpgrade('rp',61)&&(hasMilestone('p',0))&&new Decimal(data.hex).gte(gridHexUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
+            if (hasUpgrade('rp',61)&&(hasMilestone('p',0))&&new Decimal(data.hex).gte(gridHexUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
                 chance=Math.random()
                 if (gridHexUpChance('rp',num).gte(10)) {
                 if (chance<(gridHexUpChance('rp',num).div(100))) {
-                player.points = new Decimal(0)
-                data.oct++
-                data.pent=1
-                data.tetr=1
-                data.tier=1  
-                data.hex=1
-                }
-                else player.points=player.points.div(gridCost('rp',num))
-            }
-        }*/
-        if (!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
-            if (new Decimal(data.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
-                if(!hasUpgrade('rp',33)) {
+                if (!hasMilestone('p',1)) {
                     player.points = new Decimal(0)
                     data.pent=1
                     data.tetr=1
-                    data.tier=1
-                    }
-        data.hex++
-        }
-            if (new Decimal(data.tetr).gte(gridTetrUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
-                data.pent++
+                    data.tier=1  
+                    data.hex=1
                 }
-            if (new Decimal(data.tier).gte(gridTierUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&player.rp.activeChallenge!=11) {
-                data.tetr++
-            }
-            else if (data.tier>=1 && player.points.gte(gridCost('rp',num))){
-                if (player.rp.activeChallenge==11 && data.tier>=tmp.rp.challenges[11].rankCap) return
-                else data.tier++
-            }
-        }
-    }
-        if (hasUpgrade('rp',31)) {
-            let num = 103
-            data = player.rp.grid[num]
-            /*if (hasUpgrade('rp',61)&&(hasMilestone('p',0))&&new Decimal(data.hex).gte(gridHexUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
-                chance=Math.random()
-                if (gridHexUpChance('rp',num).gte(10)) {
-                if (chance<(gridHexUpChance('rp',num).div(100))) {
-                player.points = new Decimal(0)
                 data.oct++
-                data.pent=1
-                data.tetr=1
-                data.tier=1  
-                data.hex=1
                 }
                 else player.points=player.points.div(gridCost('rp',num))
             }
-        }*/
+        }  
+        else {
             if (!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
             if (new Decimal(data.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
                 if(!hasUpgrade('rp',33)) {
@@ -802,24 +829,72 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
             }
         }
     }
+    }
+        if (hasUpgrade('rp',31)) {
+            let num = 103
+            data = player.rp.grid[num]
+            if (hasUpgrade('rp',61)&&(hasMilestone('p',0))&&new Decimal(data.hex).gte(gridHexUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
+                chance=Math.random()
+                if (gridHexUpChance('rp',num).gte(10)) {
+                if (chance<(gridHexUpChance('rp',num).div(100))) {
+                if (!hasMilestone('p',1)) {
+                    player.points = new Decimal(0)
+                    data.pent=1
+                    data.tetr=1
+                    data.tier=1  
+                    data.hex=1
+                    }
+                data.oct++
+                }
+                else player.points=player.points.div(gridCost('rp',num))
+            }
+        }
+        else {
+            if (!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
+            if (new Decimal(data.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
+                if(!hasUpgrade('rp',33)) {
+                    player.points = new Decimal(0)
+                    data.pent=1
+                    data.tetr=1
+                    data.tier=1
+                    }
+        data.hex++
+        }
+            if (new Decimal(data.tetr).gte(gridTetrUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
+                data.pent++
+                }
+            if (new Decimal(data.tier).gte(gridTierUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&player.rp.activeChallenge!=11) {
+                data.tetr++
+            }
+            else if (data.tier>=1 && player.points.gte(gridCost('rp',num))){
+                if (player.rp.activeChallenge==11 && data.tier>=tmp.rp.challenges[11].rankCap) return
+                else data.tier++
+            }
+        }
+    }
+    }
     if (hasUpgrade('rp',13)) {
         let num=102
         data2 = player.rp.grid[102]
-        /*if (hasUpgrade('rp',61)&&(hasMilestone('p',0))&&new Decimal(data2.hex).gte(gridHexUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
+        if (hasUpgrade('rp',61)&&(hasMilestone('p',0))&&new Decimal(data2.hex).gte(gridHexUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
             chance=Math.random()
             if (gridHexUpChance('rp',num).gte(10)) {
             if (chance<(gridHexUpChance('rp',num).div(100))) {
-            player.points = new Decimal(0)
+                if (!hasMilestone('p',1)) {
+                player.points = new Decimal(0)
+                data2.pent=1
+                data2.tetr=1
+                data2.tier=1  
+                data2.hex=1
+                }
             data2.oct++
-            data2.pent=1
-            data2.tetr=1
-            data2.tier=1  
-            data2.hex=1
             }
             else player.points=player.points.div(gridCost('rp',num))
         }
-    } v0.1.2*/
-    if (!new Decimal(data2.hex).gte(gridHexUpCost('rp',num))) {
+    }
+    
+    else {
+        if (!new Decimal(data2.hex).gte(gridHexUpCost('rp',num))) {
         if (new Decimal(data2.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
             if(!hasUpgrade('rp',33)) {
                 player.points = new Decimal(0)
@@ -841,51 +916,56 @@ else if (data.tier<1 && player.points.gte(gridStartCost('rp',id))){
         }
     }
 }
+}
     if (hasUpgrade('rp',13)) {
         let num=101
         data = player.rp.grid[101]
-            /*if (hasUpgrade('rp',61)&&(hasMilestone('p',0))&&new Decimal(data.hex).gte(gridHexUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
+            if (hasUpgrade('rp',61)&&(hasMilestone('p',0))&&new Decimal(data.hex).gte(gridHexUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
                 chance=Math.random()
                 if (gridHexUpChance('rp',num).gte(10)) {
                 if (chance<(gridHexUpChance('rp',num).div(100))) {
-                player.points = new Decimal(0)
+                    if (!hasMilestone('p',1)) {
+                        player.points = new Decimal(0)
+                        data.pent=1
+                        data.tetr=1
+                        data.tier=1  
+                        data.hex=1
+                    }
                 data.oct++
-                data.pent=1
-                data.tetr=1
-                data.tier=1  
-                data.hex=1
                 }
                 else player.points=player.points.div(gridCost('rp',num))
             }
-        } v0.1.2*/ 
-        if (!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
-        if (new Decimal(data.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
-            if(!hasUpgrade('rp',33)) {
-                player.points = new Decimal(0)
-                data.pent=1
-                data.tetr=1
-                data.tier=1
-                }
-    data.hex++
-    }
-        if (new Decimal(data.tetr).gte(gridTetrUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
-            data.pent++
-            }
-        if (new Decimal(data.tier).gte(gridTierUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&player.rp.activeChallenge!=11) {
-            data.tetr++
         }
-        else if (data.tier>=1 && player.points.gte(gridCost('rp',num))){
-            if (player.rp.activeChallenge==11 && data.tier>=tmp.rp.challenges[11].rankCap) return
-            else data.tier++
+        else {
+            if (!new Decimal(data.hex).gte(gridHexUpCost('rp',num))) {
+            if (new Decimal(data.pent).gte(gridPentUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&(player.rp.activeChallenge!=12)) {
+                if(!hasUpgrade('rp',33)) {
+                    player.points = new Decimal(0)
+                    data.pent=1
+                    data.tetr=1
+                    data.tier=1
+                    }
+        data.hex++
+        }
+            if (new Decimal(data.tetr).gte(gridTetrUpCost('rp',num))&& player.points.gte(gridCost('rp',num))) {
+                data.pent++
+                }
+            if (new Decimal(data.tier).gte(gridTierUpCost('rp',num))&& player.points.gte(gridCost('rp',num))&&player.rp.activeChallenge!=11) {
+                data.tetr++
+            }
+            else if (data.tier>=1 && player.points.gte(gridCost('rp',num))){
+                if (player.rp.activeChallenge==11 && data.tier>=tmp.rp.challenges[11].rankCap) return
+                else data.tier++
+            }
         }
     }
 }
-if (player.points.gte(new Decimal(`1.79769e308`))) player.points = player.points.min(new Decimal(`1.79769e308`))
-    //if (player.points.gte(new Decimal(`1.79769e308`))&&(!hasMilestone('p',0))) player.points = player.points.min(new Decimal(`1.79769e308`)) v0.1.2
+    if (player.points.gte(new Decimal(`1.79769e308`))&&(!hasMilestone('p',0))) player.points = player.points.min(new Decimal(`1.79769e308`))
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
-    doReset() {
-        player.points=new Decimal(10)
+    doReset(l) {
+        if (l=="rp") player.points=new Decimal(10)
+        if (l=="p") if (hasMilestone("p",3)) layerDataReset("rp",["upgrades"]); else layerDataReset("rp",[])
     },
     hotkeys: [
         {key: "b", description: "b: Reset for booster points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},

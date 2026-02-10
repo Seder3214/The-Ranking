@@ -59,7 +59,7 @@ function getPointGen() {
 
 	let gain = new Decimal(0)
 	if (player.rp.grid[101].tier>=1) gain=gain.add(tmp.rp.getBoosterEff)
-	//gain = gain.mul(getCrystalsEffect('normal'))
+	gain = gain.mul(getCrystalsEffect('normal'))
 	return gain
 }
 

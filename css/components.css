@@ -24,11 +24,8 @@
 }
 
 .buyable {
-	height: 200px;
-	width: 200px;
-	border-radius: 25%;
-	border: 2px solid;
-	border-color: rgba(0, 0, 0, 0.125);
+	height: 120px;
+	width: 300px;
 	font-size: 10px;
 	position:relative;
 }
@@ -65,11 +62,11 @@
 	position: relative;
 	border: 4px solid;
 	border-color: rgba(0, 0, 0, 0.125);
-	color: rgba(0, 0, 0, 0.5);
-	width: 320px;
+	color: rgb(0, 0, 0);
+	width: 330px;
 	height: 320px;
 	font-size: 15px;
-	border-radius: 13.33%;
+	border-radius: 0%;
 }
 
 .challenge.done {
@@ -150,7 +147,7 @@
 	height: 50px;
 	width: 120px;
 	background: var(--points);
-	border-radius: 50%;
+	border-radius: 0%;
 	border: 2px solid;
 	border-color: rgba(0, 0, 0, 0.125);
 	font-size: 10px;
